@@ -41,6 +41,7 @@ import {
   INFO_POSITION_BEFORE,
   INFO_POSITION_AFTER,
   MODIFIER_KEY_NAMES,
+  KEYBOARD_NAV_KEY_NAMES,
 } from '../constants';
 
 const MONTH_PADDING = 23;
@@ -349,6 +350,8 @@ class DayPicker extends React.Component {
 
   onKeyDown(e) {
     if (!MODIFIER_KEY_NAMES.has(e.key)) {
+      // Stop propagation for keyboard events which affect the browser (e.g. scroll)
+      if (KEYBOARD_NAV_KEY_NAMES.has(e.key)) e.stopPropagation();
       this.throttledKeyDown(e);
     }
   }
